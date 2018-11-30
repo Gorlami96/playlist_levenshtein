@@ -48,19 +48,24 @@ def print_edits(l1,l2,dp):
     i=len(l1)
     j=len(l2)
     curr = [i,j]
-    while(curr[0]>=0 and curr[1]>=0):
+    l = []
+    while(curr[0]>0 or curr[1]>0):
         if (curr[0]-1)>=0 and ((curr[1]-1) >=0 )and (dp[curr[0]-1][curr[1]-1] == dp[curr[0]][curr[1]]):
-            print("Leave" + str(l1[curr[0]-1]) + " unchanged")
+            l.append("Leave" + str(l1[curr[0]-1]) + " unchanged")
             curr = [curr[0]-1 , curr[1]-1]
         elif (curr[0]-1)>=0 and ((curr[1]-1) >=0 ) and  (dp[curr[0]-1][curr[1]-1] == (dp[curr[0]][curr[1]] -1)):
             curr = [curr[0]-1 , curr[1]-1]
-            print("Replace" + str(l1[curr[0]]) + " with" + str(l2[curr[1]]))
-        elif((curr[1]-1) >=0 )and  ( (dp[curr[0]][curr[1]-1] == dp[curr[0]][curr[1]]) or (dp[curr[0]-1][curr[1]-1] == (dp[curr[0]][curr[1]] -1)) ):
+            l.append("Replace" + str(l1[curr[0]]) + " with" + str(l2[curr[1]]))
+        elif((curr[1]-1) >=0 )and (dp[curr[0]][curr[1]-1] == (dp[curr[0]][curr[1]] -1)) :
             curr = [curr[0] , curr[1]-1]
-            print("Insert" + str(l2[curr[1]]))
+            l.append("Insert" + str(l2[curr[1]]))
         else:
             curr = [curr[0]-1 , curr[1]]
-            print("delete" + str(l1[curr[0]]))
+            l.append("delete" + str(l1[curr[0]]))
+
+    l.reverse()
+    for i in l:
+        print(i)
             
             
 if __name__=="__main__":
@@ -84,7 +89,9 @@ if __name__=="__main__":
     print("Comparing playlist similarity by artist")
     playlist_transform(b1,b2,"Artist")
     #include your own playlists below
-
+    l1 = [('In My Blood','Black Stone Cherry','Rock'), ('Paradise City','Guns N Roses','Rock') , ('Resonance','Home','Electronic'), ('Velvet 2600','Fourge','Electronic'), ('Jump','Van Halen','Rock')]
+    l2 = [('Pyxis','Home','Electronic') ,('Under The Bridge','Red Hot Chili Peppers','Rock'), ('Spaceflight', 'Efence', 'Electronic'), ('Spoonman','Soundgarden','Rock'), ('Jump','Van Halen','Rock'), ('Lifeline', 'Papa Roach', 'Rock')]
+    playlist_transform(l1,l2)
         
 
 ##l1 = [('abc', 'def', 'ghi'), ('ads', 'asas', 'vcxv') , ('sada' , 'sfg' , 'asd')]
